@@ -1,0 +1,16 @@
+# Exclude the Maven build output — the Dockerfile rebuilds inside the container
+target/
+
+# Git metadata
+.git/
+.github/
+
+# IDE and OS noise
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
