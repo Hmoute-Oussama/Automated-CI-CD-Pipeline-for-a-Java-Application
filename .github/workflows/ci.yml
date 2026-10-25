@@ -9,24 +9,19 @@ on:
 
 jobs:
   build-and-test:
-    name: Build & Run Tests (Java ${{ matrix.java }})
+    name: Build & Run Tests (Java 21)
     runs-on: ubuntu-latest
-
-    # Test against two LTS Java versions
-    strategy:
-      matrix:
-        java: [ 17, 21 ]
 
     steps:
       # 1. Check out the repository code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Set up the requested JDK version
-      - name: Set up JDK ${{ matrix.java }}
+      # 2. Set up JDK 21
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java }}
+          java-version: 21
           distribution: temurin
           cache: maven          # caches ~/.m2 between runs — speeds up builds
 
@@ -39,6 +34,6 @@ jobs:
         if: always()            # upload even when tests fail so you can inspect
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-report-java-${{ matrix.java }}
+          name: surefire-report-java-21
           path: target/surefire-reports/
           retention-days: 7
