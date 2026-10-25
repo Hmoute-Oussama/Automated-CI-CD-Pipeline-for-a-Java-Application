@@ -1,0 +1,20 @@
+services:
+  task-manager:
+    # Use the pre-built image from GitHub Container Registry,
+    # or build locally with: docker compose up --build
+    image: ghcr.io/hmoute-oussama/task-manager:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task-manager
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
